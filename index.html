@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Title of the document</title>
+
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		
+		<h2>Test this crawler!</h2>
+
+		<form id="myForm">
+			<input type="text" name="campo1" data-auto-capture data-extra="dati_extra_a_scelta" />
+			<input type="checkbox" name="campo2" data-auto-capture />
+			<input type="submit" name="campo2" data-auto-capture />
+		</form>
+
+		<!-- You will need necessary jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="js/crawler.js"></script>
+
+		<script type="text/javascript">
+			var crawler = new Crawler();
+
+			$("#myForm").on('submit', function(e) {
+				e.preventDefault();
+
+				let data = crawler.getData('#myForm');
+			  	console.log(data);
+			});
+		</script>
+	</body>
+</html>
