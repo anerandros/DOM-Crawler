@@ -1,5 +1,5 @@
-# DOM-Crawler
-This is a simple DOM Crawler base on JavaScript. You can select your context area with a simple jQuery-like selector and retrieve all data in that context.
+# ~~jQuery~~-DOM-Crawler
+This is a simple DOM Crawler base on ~~jQuert~~ JavaScript. You can select your context area with a simple jQuery-like selector and retrieve all data in that context.
 
 ## Basic setup
 ### HTML
