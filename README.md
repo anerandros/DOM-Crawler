@@ -21,9 +21,15 @@ Remember to load in order always jQuery first and then *Crawler* class.
 
 ### Istance the class
 Istancing the class without extended parameters is easy:
+
 ```var crawler = new Crawler();```
 
 In this case, ***no selector*** is setted. You will need to retrieve data adding also a jQuery selector:
+
 ```var data = crawler.getData('#myForm');```
 
-In the case you are using extendend settings while istancing the *Crawler* class,
+**Default parameters**
+Without using extended settings, the *Crawler* class will look for ```input``` tags with ```data-auto-capture``` attribute. Extra data can be passed through ```data-extra``` attribute.
+
+**Extended parameters**
+~~In the case you are using extendend settings while istancing the *Crawler* class~~ *In progress*
