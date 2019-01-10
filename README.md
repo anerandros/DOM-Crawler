@@ -1,5 +1,5 @@
-# jQuery-DOM-Crawler
-This is a simple DOM Crawler base on jQuery. You can select your context area with a simple jQuery selector and retrieve all data in that context.
+# DOM-Crawler
+This is a simple DOM Crawler base on JavaScript. You can select your context area with a simple jQuery-like selector and retrieve all data in that context.
 
 ## Basic setup
 ### HTML
@@ -13,9 +13,8 @@ You just need to attach a selector to your context area, i.e. an id attribute as
 ```
 
 ### Load JS libraries
-Remember to load in order always jQuery first and then *Crawler* class.
+Load the *Crawler* class.
 ```
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/crawler.js"></script>
 ```
 
@@ -24,7 +23,7 @@ Istancing the class without extended parameters is easy:
 
 ```var crawler = new Crawler();```
 
-In this case, ***no selector*** is setted. You will need to retrieve data adding also a jQuery selector:
+In this case, ***no selector*** is setted. You will need to retrieve data adding also a jQuery-like selector:
 
 ```var data = crawler.getData('#myForm');```
 
