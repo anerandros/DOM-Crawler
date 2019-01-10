@@ -3,7 +3,7 @@ This is a simple DOM Crawler base on jQuery. You can select your context area wi
 
 ## Basic setup
 ### HTML
-You just need to attach a selector to your context area, i.e. and id as ```#myForm``` in your ```<form>``` tag. You markup should seems like this:
+You just need to attach a selector to your context area, i.e. an id attribute as ```#myForm``` in your ```<form>``` tag. You markup should seems like this:
 ```
 <form id="myForm">
   <input type="text" name="field1" data-auto-capture data-extra="extra_data" />
@@ -13,7 +13,7 @@ You just need to attach a selector to your context area, i.e. and id as ```#myFo
 ```
 
 ### Load JS libraries
-Remember to load in order always jQuery first.
+Remember to load in order always jQuery first and then *Crawler* class.
 ```
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/crawler.js"></script>
