@@ -31,7 +31,7 @@ In this case, ***no selector*** is setted. You will need to retrieve data adding
 You can also declare the selector while istancing and retrieve data without specifying the selector.
 
 ```
-var inputCrawler = new Crawler('#myForm);
+var inputCrawler = new Crawler('#myForm'); // All inputs in #myForm
 var data = inputCrawler.getData();
 ```
 
