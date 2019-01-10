@@ -4,7 +4,7 @@ class Crawler {
 		this.selector = selector;
 
 		this.inputType = 'input';
-		this.inputAttr = 'auto-capture';
+		this.inputAttr = 'autocapture';
 	}
 
 	setSelector(selector) {
@@ -30,17 +30,18 @@ class Crawler {
 		let _this = this;
 
 		this.clearBowl();
-		
-		$(_this.selector)
-			.find(_this.inputType)
-			.filter(function(i, el) {return $(el).data(_this.inputAttr) == ""})
-			.each(function(i, el) {
+
+		let ctx = document.querySelector(_this.selector);
+		ctx.querySelectorAll(_this.inputType).forEach(function(el) {
+			if (el.dataset[_this.inputAttr] == "") {
 				_this.dataBowl.push({
-					name: $(el).attr('name'),
-					type: $(el).attr('type'),
-					value:  $(el).val(),
-					extra: $(el).data('extra')
+					name: el.name,
+					type: el.type,
+					value:  el.value,
+					extra: el.dataset.extra
 				});
-			});
+			}
+		});
+
 	}
 }
