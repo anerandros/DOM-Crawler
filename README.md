@@ -28,6 +28,13 @@ In this case, ***no selector*** is setted. You will need to retrieve data adding
 
 ```var data = crawler.getData('#myForm');```
 
+You can also declare the selector while istancing and retrieve data without specifying the selector.
+
+```
+var inputCrawler = new Crawler('#myForm);
+var data = inputCrawler.getData();
+```
+
 
 ### Default parameters
 Without using extended settings, the *Crawler* class will look for ```input``` tags with ```data-auto-capture``` attribute. Extra data can be passed through ```data-extra``` attribute.
