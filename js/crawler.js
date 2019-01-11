@@ -1,25 +1,35 @@
 class Crawler {
 	constructor(selector) {
-		this.dataBowl = [];
+		this.clearBowl();
 		this.selector = selector;
 
 		this.setType('input');
 		this.setRevealAttr('autocapture');
+		this.setExtraData('extra');
+		return this;
 	}
 
 	setSelector(selector) {
 		if (selector) this.selector = selector;
 		if (!this.selector) throw new Error("[Crawler] No selector setted");
+		return this;
 	}
 
 	setType(type) {
 		if (type) this.inputType = type;
 		if (!this.inputType) throw new Error("[Crawler] No type setted");
+		return this;
 	}
 
 	setRevealAttr(attr) {
 		if (attr) this.inputAttr = attr;
 		if (!this.inputAttr) throw new Error("[Crawler] No dataset attribute setted");
+		return this;
+	}
+
+	setExtraData(extra) {
+		if (extra) this.extra = extra;
+		return this;
 	}
 
 	getData(selector) {
@@ -34,6 +44,7 @@ class Crawler {
 
 	clearBowl() {
 		this.dataBowl = [];
+		return this;
 	}
 
 	crawlData() {
@@ -48,9 +59,11 @@ class Crawler {
 					name: el.name,
 					type: el.type,
 					value:  el.value,
-					extra: el.dataset.extra
+					extra: el.dataset[_this.extra]
 				});
 			}
 		});
+
+		return this;
 	}
 }
