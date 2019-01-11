@@ -6,9 +6,9 @@ This is a simple DOM Crawler base on JavaScript. You can select your context are
 You just need to attach a selector to your context area, i.e. an id attribute as ```#myForm``` in your ```<form>``` tag. You markup should seems like this:
 ```
 <form id="myForm">
-  <input type="text" name="field1" data-auto-capture data-extra="extra_data" />
-  <input type="checkbox" name="field2" data-auto-capture />
-  <input type="submit" name="field3" data-auto-capture />
+  <input type="text" name="field1" data-autocapture data-extra="extra_data" />
+  <input type="checkbox" name="field2" data-autocapture />
+  <input type="submit" name="field3" data-autocapture />
 </form>
 ```
 
@@ -23,7 +23,15 @@ Istancing the class without extended parameters is easy:
 
 ```var crawler = new Crawler();```
 
-In this case, ***no selector*** is setted. You will need to retrieve data adding also a jQuery-like selector:
+
+### Default parameters
+Without using extended settings, the *Crawler* class will look for ```input``` tags with ```data-autocapture``` attribute. Extra data can be passed through ```data-extra``` attribute.
+
+### Extended parameters
+~~In the case you are using extendend settings while istancing the *Crawler* class~~ *In progress*
+
+### Example
+After istancing without extended settings, ***no selector*** is setted. Remember to set it through ```setSelector(<insert your selector here>)```or specify the jQuery-like selector in ```getData``` function:
 
 ```var data = crawler.getData('#myForm');```
 
@@ -33,10 +41,3 @@ You can also declare the selector while istancing and retrieve data without spec
 var inputCrawler = new Crawler('#myForm'); // All inputs in #myForm
 var data = inputCrawler.getData();
 ```
-
-
-### Default parameters
-Without using extended settings, the *Crawler* class will look for ```input``` tags with ```data-auto-capture``` attribute. Extra data can be passed through ```data-extra``` attribute.
-
-### Extended parameters
-~~In the case you are using extendend settings while istancing the *Crawler* class~~ *In progress*
