@@ -3,13 +3,23 @@ class Crawler {
 		this.dataBowl = [];
 		this.selector = selector;
 
-		this.inputType = 'input';
-		this.inputAttr = 'autocapture';
+		this.setType('input');
+		this.setRevealAttr('autocapture');
 	}
 
 	setSelector(selector) {
 		if (selector) this.selector = selector;
-		if (!this.selector) throw new Error("[Crawler] No selector setted")
+		if (!this.selector) throw new Error("[Crawler] No selector setted");
+	}
+
+	setType(type) {
+		if (type) this.inputType = type;
+		if (!this.inputType) throw new Error("[Crawler] No type setted");
+	}
+
+	setRevealAttr(attr) {
+		if (attr) this.inputAttr = attr;
+		if (!this.inputAttr) throw new Error("[Crawler] No dataset attribute setted");
 	}
 
 	getData(selector) {
@@ -42,6 +52,5 @@ class Crawler {
 				});
 			}
 		});
-
 	}
 }
