@@ -72,12 +72,28 @@ class Crawler {
 					extra: el.dataset[_this.extra],
 					validate: operation
 				});
+
+				//el.dataset[_this.inputAttr] && this.analyzeElement();
 			}
 		});
 
 		return this;
 	}
+/*
+	analyzeElement(el) {
+		let operation = (el.dataset[_this.validate]) ? el.dataset[_this.validate].split(";") : [];
 
+		_this.dataBowl.push({
+			name: el.name,
+			type: el.type,
+			value:  el.value,
+			extra: el.dataset[_this.extra],
+			validate: operation
+		});
+
+		return this;
+	}
+*/
 	validate() {
 		let toDrop = [];
 
