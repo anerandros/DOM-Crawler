@@ -7,6 +7,8 @@ class Crawler {
 		this.setRevealAttr('autocapture');
 		this.setExtraData('extra');
 		this.setValidateAttr('validate');
+
+		this.setInvalidElementCallback(null);
 		return this;
 	}
 
@@ -50,6 +52,10 @@ class Crawler {
 		return this.dataBowl;
 	}
 
+	getBowl() {
+		return this.dataBowl;	
+	}
+
 	clearBowl() {
 		this.dataBowl = [];
 		return this;
@@ -62,54 +68,76 @@ class Crawler {
 
 		let ctx = document.querySelector(_this.selector);
 		ctx.querySelectorAll(_this.inputType).forEach(function(el) {
-			if (el.dataset[_this.inputAttr] == "" || el.dataset[_this.inputAttr]) {
-				let operation = (el.dataset[_this.validate]) ? el.dataset[_this.validate].split(";") : [];
-
-				_this.dataBowl.push({
-					name: el.name,
-					type: el.type,
-					value:  el.value,
-					extra: el.dataset[_this.extra],
-					validate: operation
-				});
-
-				//el.dataset[_this.inputAttr] && this.analyzeElement();
-			}
+			el.dataset[_this.inputAttr] && _this.analyzeElement(el);
 		});
 
 		return this;
 	}
-/*
-	analyzeElement(el) {
-		let operation = (el.dataset[_this.validate]) ? el.dataset[_this.validate].split(";") : [];
 
-		_this.dataBowl.push({
+	analyzeElement(el) {
+		let skipInvalid = true;
+
+		if (this.isValid(el)) {
+			this.addElement(el);
+		} else {
+			!skipInvalid && console.error("[Error] Crawler detected an invalid element! Stopped working");
+		}
+
+		return this;
+	}
+
+	addElement(el) {
+		let _this = this;
+
+		this.getBowl().push({
 			name: el.name,
 			type: el.type,
 			value:  el.value,
 			extra: el.dataset[_this.extra],
-			validate: operation
+			isValid: el.dataset[_this.validate]
 		});
-
-		return this;
 	}
-*/
-	validate() {
-		let toDrop = [];
 
-		let validateFn = {
-			number: (d) => {return !isNaN(d)},
-			notEmpty: (d) => {return d != ""},
-			isInterval: (a, b) => {console.log("IsInterval fn()")}
+	isValid(el) {
+		let _this = this;
+		let isInvalid = false;
+		let hasValidation = el.dataset[this.validate] ? el.dataset[this.validate].split(";") : undefined;
+
+		if (hasValidation) {
+			// Meglio farla con un'interfaccia
+			let validateFn = {
+				isNumber: (d) => {return !isNaN(d)},
+				isInterval: (a, b) => {console.log("IsInterval fn()")},
+				notEmpty: (d) => {return d != ""}
+			}
+
+			hasValidation.forEach(function(f, i) {
+				try {
+					// Se ho una variabile valida (ricorda che splitto), esiste nell'oggetto validateFn, mi restituisce un valore valido
+					if (!(f && validateFn[f] && validateFn[f](el.value))) {
+						_this.handleInvalidElement(el, f);
+						isInvalid = true;
+					}
+				} catch (e) {
+					throw new Error("[Error] Crawler's validation process failed: ", e);
+				}
+			});
 		}
+		return isInvalid ? false : true;
+	}
 
-		this.dataBowl.map(function(el, i) {
-			this.validate.forEach(function(f, j) {
-				if ( f && validateFn[f] ) toDrop.push(j);
-			})
-		});
+	handleInvalidElement(el, errorType) {
+		console.warn("Invalid element:", errorType, el);
+		if (this.invalidElementCallback) this.invalidElementCallback(el, errorType);
+		return false;
+	}
 
-		//this.filterData(toDrop);
-		return this.releaseData();
+	setInvalidElementCallback(fn) {
+		try {
+			if (typeof fn === 'function') this.invalidElementCallback = fn;
+		} catch(e) {
+			throw new Error("[Error] Crawler's callback function on invalid element is NOT A FUNCTION", e)
+		}
+		return this;
 	}
 }
