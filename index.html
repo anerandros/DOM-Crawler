@@ -25,7 +25,11 @@
 			$("#myForm").on('submit', function(e) {
 				e.preventDefault();
 
-				let data = crawler.getData('#myForm');
+				crawler.invalidElementCallback = function(a, b) {
+					console.log("[LOG] fallback log ", a, b);
+				};
+
+				let data = crawler.get('#myForm');
 			  	console.log(data);
 			});
 		</script>
