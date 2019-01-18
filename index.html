@@ -25,9 +25,9 @@
 			$("#myForm").on('submit', function(e) {
 				e.preventDefault();
 
-				crawler.invalidElementCallback = function(a, b) {
-					console.log("[LOG] fallback log ", a, b);
-				};
+				crawler.on('invalidElement', function() {
+					console.log("Event listener: invalid Element found.");
+				})
 
 				let data = crawler.get('#myForm');
 			  	console.log(data);

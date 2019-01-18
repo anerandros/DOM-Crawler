@@ -46,6 +46,7 @@ class Crawler {
 		this.validate = 'validate';
 
 		this.setInvalidElementCallback = null;
+		this.skipInvalid = true;
 		return this;
 	}
 
@@ -97,6 +98,12 @@ class Crawler {
 		this.dataBowl = data;
 	}
 
+	get skipInvalid() {return this.skipInvalidElement;}
+	set skipInvalid(status) {
+		this.skipInvalidElement = status;
+		return this;
+	}
+
 	get(selector) {
 		this.context = selector;
 		this.crawlData();
@@ -122,12 +129,10 @@ class Crawler {
 	}
 
 	analyzeElement(el) {
-		let skipInvalid = true;
-
 		if (this.isValid(el)) {
 			this.addElement(el);
 		} else {
-			!skipInvalid && console.error("[Error] Crawler detected an invalid element! Stopped working");
+			!this.skipInvalid && console.error("[Error] Crawler detected an invalid element! Stopped working");
 		}
 
 		return this;
@@ -150,7 +155,7 @@ class Crawler {
 				try {
 					// Se NON ho una variabile valida (ricorda che splitto), esiste nell'oggetto validateFn, mi restituisce un valore valido, allora...
 					if (!(f && validateFn[f] && validateFn[f](el.value))) {
-						_this.handleInvalidElement(el, f);
+						//_this.handleInvalidElement(el, f);
 						_this.fire(CRAWLER_EVENTS.INVALID_ELEMENT, el, f);
 						isInvalid = true;
 					}
