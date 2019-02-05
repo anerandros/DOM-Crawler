@@ -2,9 +2,12 @@ var CRAWLER_EVENTS = {
 	INVALID_ELEMENT: 'invalidElement'
 }
 
-/****************************************************/
-/**********	DA AGGIUNGERE ARGS AGLI EVENTI **********/
-/****************************************************/
+/**************************************************************/
+/*** 					 TO DO	 				  			***/
+/***	- Pass arguments to event handler					***/
+/***	- Crawler doesn't stop if this.skipInvalid = false	***/
+/***														***/
+/**************************************************************/
 
 class EventHandler {
 	constructor() {
@@ -18,10 +21,11 @@ class EventHandler {
 		return this;
 	}
 
-	dispatchEvent(eventType) {
+	dispatchEvent() {
+		var eventType = Array.prototype.shift.call(arguments);
 		if (this.listener[eventType]) {
 			this.listener[eventType].forEach(function(fn) {
-				typeof fn === 'function' && fn();
+				typeof fn === 'function' && fn(arguments);
 			});
 		}
 	}
@@ -52,7 +56,11 @@ class Crawler {
 
 	// EVENT HANDLER
 	on(eventType, f) {this.event.addEventListener(eventType, f); return this;}
-	fire(eventType) {this.event.dispatchEvent(eventType); return this;}
+	fire() {
+		var eventType = Array.prototype.shift.call(arguments);
+		this.event.dispatchEvent(eventType, arguments);
+		return this;
+	}
 
 	// Context; where to search elements
 	get context() {return this.selector;}
@@ -167,6 +175,7 @@ class Crawler {
 		return isInvalid ? false : true;
 	}
 
+	/*
 	handleInvalidElement(el, errorType) {
 		console.warn("Invalid element:", errorType, el);
 
@@ -176,6 +185,7 @@ class Crawler {
 		}
 		return false;
 	}
+	*/
 
 	addElement(el) {
 		let _this = this;
@@ -189,6 +199,7 @@ class Crawler {
 		});
 	}
 
+	/*
 	get invalidElementCallback() {return this.invalidElementCallbackFunction;}
 	set invalidElementCallback(fn) {
 		if (typeof fn === 'function') {
@@ -197,4 +208,5 @@ class Crawler {
 			if (fn) throw new Error("[Error] Crawler's callback function on invalid element is NOT A FUNCTION", fn);
 		}
 	}
+	*/
 }

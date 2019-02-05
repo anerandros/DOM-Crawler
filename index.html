@@ -25,8 +25,8 @@
 			$("#myForm").on('submit', function(e) {
 				e.preventDefault();
 
-				crawler.on('invalidElement', function() {
-					console.log("Event listener: invalid Element found.");
+				crawler.on('invalidElement', function(element, errorType) {
+					console.warn("Event listener: invalid Element found.", element, errorType);
 				})
 
 				let data = crawler.get('#myForm');
